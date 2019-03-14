@@ -16,6 +16,7 @@ public class GroupGenerator {
      */
     public static void main(String[] args) {
         new MainMenu().setVisible(true);
+        System.out.println("test");
     }
     
 }

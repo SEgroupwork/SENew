@@ -5,8 +5,10 @@
  */
 package groupgenerator;
 
+import javax.swing.JOptionPane;
+
 /**
- *
+ * Main Menu GUI, creates a GroupGenerator instance when the program starts
  * @author 23781271
  */
 public class MainMenu extends javax.swing.JFrame {
@@ -14,7 +16,13 @@ public class MainMenu extends javax.swing.JFrame {
     /**
      * Creates new form MainMenu
      */
+    static GroupGenerator groupGenerator;
+
+    /**
+     * Runs the initComponents() method
+     */
     public MainMenu() {
+        groupGenerator = new GroupGenerator();
         initComponents();
     }
 
@@ -32,6 +40,7 @@ public class MainMenu extends javax.swing.JFrame {
         exitBtn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         showStudentsBtn = new javax.swing.JButton();
+        showGroupsBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -57,12 +66,19 @@ public class MainMenu extends javax.swing.JFrame {
         });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel1.setText("Main Menu");
+        jLabel1.setText("Student Groups Generator");
 
         showStudentsBtn.setText("Show Students");
         showStudentsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 showStudentsBtnActionPerformed(evt);
+            }
+        });
+
+        showGroupsBtn.setText("Show Groups");
+        showGroupsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showGroupsBtnActionPerformed(evt);
             }
         });
 
@@ -78,26 +94,29 @@ public class MainMenu extends javax.swing.JFrame {
                             .addComponent(addStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(generateGroupsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(showStudentsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(showStudentsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(showGroupsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
+                        .addGap(154, 154, 154)
                         .addComponent(jLabel1)))
-                .addContainerGap(204, Short.MAX_VALUE))
+                .addContainerGap(153, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addGap(38, 38, 38)
                 .addComponent(jLabel1)
-                .addGap(87, 87, 87)
+                .addGap(84, 84, 84)
                 .addComponent(addStudentBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(generateGroupsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(showGroupsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(showStudentsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
 
         pack();
@@ -122,37 +141,28 @@ public class MainMenu extends javax.swing.JFrame {
         new StudentsMenu().setVisible(true);
     }//GEN-LAST:event_showStudentsBtnActionPerformed
 
+    private void showGroupsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showGroupsBtnActionPerformed
+        if(groupGenerator.getGroupNames().length < 1){
+            JOptionPane.showMessageDialog(null, "No groups have been generated yet");
+        }
+        else{
+            this.dispose();
+            new GroupsMenu().setVisible(true);
+        }
+    }//GEN-LAST:event_showGroupsBtnActionPerformed
+
     /**
+     * Creates an instance of the GroupGenerator Class
+     * Shows the main menu GUI
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
+        
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new MainMenu().setVisible(true);
+                
+                new LoginMenu().setVisible(true);
+                
             }
         });
     }
@@ -162,6 +172,7 @@ public class MainMenu extends javax.swing.JFrame {
     private javax.swing.JButton exitBtn;
     private javax.swing.JButton generateGroupsBtn;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton showGroupsBtn;
     private javax.swing.JButton showStudentsBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -5,8 +5,10 @@
  */
 package groupgenerator;
 
+import javax.swing.JOptionPane;
+
 /**
- *
+ * Group Generation GUI
  * @author 23781271
  */
 public class GroupGeneratorMenu extends javax.swing.JFrame {
@@ -29,7 +31,7 @@ public class GroupGeneratorMenu extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        groupSizeTxt = new javax.swing.JTextField();
+        groupSizeTxtField = new javax.swing.JTextField();
         generateGroupsBtn = new javax.swing.JButton();
         backBtn = new javax.swing.JButton();
 
@@ -40,9 +42,9 @@ public class GroupGeneratorMenu extends javax.swing.JFrame {
 
         jLabel2.setText("Group Size");
 
-        groupSizeTxt.addActionListener(new java.awt.event.ActionListener() {
+        groupSizeTxtField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                groupSizeTxtActionPerformed(evt);
+                groupSizeTxtFieldActionPerformed(evt);
             }
         });
 
@@ -70,7 +72,7 @@ public class GroupGeneratorMenu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addGap(27, 27, 27)
-                        .addComponent(groupSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(groupSizeTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 181, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(316, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -88,7 +90,7 @@ public class GroupGeneratorMenu extends javax.swing.JFrame {
                 .addGap(69, 69, 69)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(groupSizeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(groupSizeTxtField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(generateGroupsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -99,9 +101,9 @@ public class GroupGeneratorMenu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void groupSizeTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupSizeTxtActionPerformed
+    private void groupSizeTxtFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_groupSizeTxtFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_groupSizeTxtActionPerformed
+    }//GEN-LAST:event_groupSizeTxtFieldActionPerformed
 
     private void backBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backBtnActionPerformed
         this.dispose();
@@ -110,49 +112,32 @@ public class GroupGeneratorMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_backBtnActionPerformed
 
     private void generateGroupsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_generateGroupsBtnActionPerformed
-        this.dispose();
-        new GroupsMenu().setVisible(true);
+        int groupSize = 0;
+        try {
+            groupSize = Integer.parseInt(groupSizeTxtField.getText());
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Sorry you did not input a correct group size");
+            groupSizeTxtField.setText("");
+        }
+        if(MainMenu.groupGenerator.generateGroups(groupSize)){
+            JOptionPane.showMessageDialog(null, "groups successfully created");
+            this.dispose();
+            new GroupsMenu().setVisible(true);
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "Could not create the groups, add some students first or try a smaller group size");
+            groupSizeTxtField.setText("");
+        }
+        
     }//GEN-LAST:event_generateGroupsBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GroupGeneratorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GroupGeneratorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GroupGeneratorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GroupGeneratorMenu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GroupGeneratorMenu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backBtn;
     private javax.swing.JButton generateGroupsBtn;
-    private javax.swing.JTextField groupSizeTxt;
+    private javax.swing.JTextField groupSizeTxtField;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
